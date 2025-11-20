@@ -20,9 +20,20 @@ class StudentController extends Controller
     }
 
     public function store(Request $request)
-    {
-        //
-    }
+{
+    $validated = $request->validate([
+        'nis' => 'required',
+        'nama_lengkap' => 'required',
+        'jenis_kelamin' => 'required',
+        'nisn' => 'required',
+    ]);
+
+    Student::create($validated);
+
+    return redirect()
+        ->route('admin.students.index')
+        ->with('success', 'Data siswa berhasil ditambahkan');
+}
 
     public function show(Student $student)
     {
